@@ -2,29 +2,30 @@
 
 ![nuget badge](https://img.shields.io/nuget/vpre/TopCover)
 
+Chasing 100% code coverage is bad, but having no test coverage is _also_ bad!
 
 > If a part of your test suite is weak in a way that coverage can detect, it's likely also weak in a way coverage can't detect.
 >
 > -- [Brian Marick](http://www.exampler.com/testing-com/writings/coverage.pdf)
 
-Chasing 100% code coverage is bad, but having no test coverage is _also_ bad!
-
+<br />
 TopCover is a command-line tool, designed to run in a CI process, that helps you analyse test coverage and understand your code's weak points.
 
 TopCover does not run code coverage tools. Instead, you pass it code coverage reports from your tool of choice.
 
-Design Goals:
-- All options must available from the command line, JSON files in every repository is not necessary
+<br />
 
+# Installation
 
-Features yet to be implemented:
-- Find tests that change a lot when an area of code is refactored. This could mean that the tests are tightly coupled to the implementation
-- Specify coverage thresholds for key areas of your code (e.g. database code must be tested, but controller don't)
-- Check code coverage on new code in a Pull Request (and, optionally, set a threshold)
+Install with `dotnet tool`:
 
-Current only the Cobertura format is supported. More formats will follow.
+```bash
+dotnet tool install --global TopCover
+```
 
-# Diff Code Coverage
+# Features
+
+## # Diff Code Coverage Reports
 
 By providing two coverage reports (e.g. from a PR and the target branch it will be merged in to), TopCover can analyse the difference.
 
@@ -32,9 +33,7 @@ By providing two coverage reports (e.g. from a PR and the target branch it will 
 topcover diff -?
 ```
 
-## Arguments
-
-### Before and After (required)
+### `--before` and `--after` (required)
 
 The relative path to the Cobertura XML test reports to compare.
 
@@ -44,7 +43,8 @@ For example, you might collect test coverage from a Pull Request (_'after'_) and
 topcover diff --before old.xml --after new.xml
 ```
 
-(alias: `-a` and `-b`)
+or use the aliases `-a` and `-b`
+
 ```
 topcover diff -b old.xml -a new.xml
 ```
@@ -59,7 +59,7 @@ Coverage Change Report
     Branch coverage   50.0% -> 50.0%  (no change)
 ```
 
-### Saving results to pipline variables
+### `--setvars`
 
 Stores the results of the diff in pipeline variables, to be accessed in later build steps.
 
@@ -81,3 +81,9 @@ TOPCOVER_OVERALL_BRANCH_AFTER = 50.0
 TOPCOVER_OVERALL_BRANCH_CHANGE = 0.0
 TOPCOVER_OVERALL_BRANCH_CHANGE_INDICATOR = 
 ```
+
+# Coming soon
+
+ - Find tests that change a lot when an area of code is refactored. This could mean that the tests are tightly coupled to the implementation
+ - Specify coverage thresholds for key areas of your code (e.g. database code must be tested, but controller don't)
+ - Check code coverage on new code in a Pull Request (and, optionally, set a threshold)
