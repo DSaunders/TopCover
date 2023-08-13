@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="6.11.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
+        <PackageReference Include="xunit" Version="2.4.2" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.collector" Version="6.0.0">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TopCover\TopCover.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Parsers" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Parsers\Cobertura\_samples\bad.xml" />
+      <EmbeddedResource Include="Parsers\Cobertura\_samples\incorrect.xml" />
+      <EmbeddedResource Include="Parsers\Cobertura\_samples\structure.xml" />
+      <EmbeddedResource Include="Parsers\Cobertura\_samples\summary.xml" />
+      <EmbeddedResource Include="Parsers\Cobertura\_samples\withdoctype.xml" />
+    </ItemGroup>
+
+</Project>
