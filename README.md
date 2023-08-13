@@ -7,7 +7,7 @@
 >
 > -- [Brian Marick](http://www.exampler.com/testing-com/writings/coverage.pdf)
 
-Chasing abirtrary test coverage numbers is bad, but having no test coverage is _also_ bad!
+Chasing 100% code coverage is bad, but having no test coverage is _also_ bad!
 
 TopCover is a command-line tool, designed to run in a CI process, that helps you analyse test coverage and understand your code's weak points.
 
