@@ -70,15 +70,14 @@ This currently supports [Azure Devops](https://learn.microsoft.com/en-us/azure/d
 topcover diff -b old.xml -a new.xml --setvars devops
 ```
 
-produces:
+sets the following variables:
 ```
-##vso[task.setvariable variable=TOPCOVER_OVERALL_LINE_BEFORE]88.88
-##vso[task.setvariable variable=TOPCOVER_OVERALL_LINE_AFTER]55.55
-##vso[task.setvariable variable=TOPCOVER_OVERALL_LINE_CHANGE]-33.3
-##vso[task.setvariable variable=TOPCOVER_OVERALL_LINE_CHANGE_INDICATOR]↓
-
-##vso[task.setvariable variable=TOPCOVER_OVERALL_BRANCH_BEFORE]50.00
-##vso[task.setvariable variable=TOPCOVER_OVERALL_BRANCH_AFTER]50.00
-##vso[task.setvariable variable=TOPCOVER_OVERALL_BRANCH_CHANGE]00.0
-##vso[task.setvariable variable=TOPCOVER_OVERALL_BRANCH_CHANGE_INDICATOR]
+TOPCOVER_OVERALL_LINE_BEFORE = 88.8
+TOPCOVER_OVERALL_LINE_AFTER = 55.5
+TOPCOVER_OVERALL_LINE_CHANGE = -33.3
+TOPCOVER_OVERALL_LINE_CHANGE_INDICATOR = ↓
+TOPCOVER_OVERALL_BRANCH_BEFORE = 50.0
+TOPCOVER_OVERALL_BRANCH_AFTER = 50.0
+TOPCOVER_OVERALL_BRANCH_CHANGE = 0.0
+TOPCOVER_OVERALL_BRANCH_CHANGE_INDICATOR = 
 ```
