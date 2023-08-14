@@ -41,7 +41,7 @@ public static class DiffCommand
                     Console.WriteLine(
                         $"Could not find the 'before' file '{before.FullName}'.");
                     Console.ResetColor();
-                    return;
+                    Environment.Exit(1);
                 }
 
                 if (!after.Exists)
@@ -50,7 +50,7 @@ public static class DiffCommand
                     Console.WriteLine(
                         $"Could not find the 'after' file '{after.FullName}'.");
                     Console.ResetColor();
-                    return;
+                    Environment.Exit(1);
                 }
 
                 await using Stream oldFile = before.OpenRead();
@@ -77,37 +77,7 @@ public static class DiffCommand
 
     private static void WriteReport(CoverageDifference diff)
     {
-        Console.WriteLine();
-        Console.WriteLine("Coverage Change Report");
-        Console.WriteLine("----------------------");
-        Console.WriteLine();
-        Console.WriteLine("  Summary:");
-        OutputColouredMetric("Line coverage   ", diff.Summary.LineCoverage);
-        OutputColouredMetric("Branch coverage ", diff.Summary.BranchCoverage);
-        Console.WriteLine();
-    }
-
-    private static void OutputColouredMetric(string name, DiffSummary diff)
-    {
-        Console.Write($"    {name}  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-
-        Console.Write($"{diff.Old:#00.0}% -> {diff.New:#00.0}%  ");
-
-        if (diff.Change == 0)
-        {
-            Console.Write($"(no change)");
-            Console.WriteLine();
-            Console.ResetColor();
-            return;
-        }
-
-        Console.ForegroundColor = diff.Change < 0 ? ConsoleColor.Red : ConsoleColor.Green;
-
-        Console.Write($"{FormatChange(diff.Change)}%");
-        Console.WriteLine();
-
-        Console.ResetColor();
+        Console.WriteLine(diff.FormatAsGitDiff());
     }
 
     private static void StoreResultsInVars(CoverageDifference diff)

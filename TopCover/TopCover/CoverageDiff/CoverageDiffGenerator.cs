@@ -6,14 +6,12 @@ public static class CoverageDiffGenerator
     {
         var overallLineCoverage = new DiffSummary(
             before.Summary.LineCoverage,
-            after.Summary.LineCoverage,
-            after.Summary.LineCoverage - before.Summary.LineCoverage
+            after.Summary.LineCoverage
         );
 
         var overallBranchCoverage = new DiffSummary(
             before.Summary.BranchCoverage,
-            after.Summary.BranchCoverage,
-            after.Summary.BranchCoverage - before.Summary.BranchCoverage
+            after.Summary.BranchCoverage
         );
 
         return new CoverageDifference(
