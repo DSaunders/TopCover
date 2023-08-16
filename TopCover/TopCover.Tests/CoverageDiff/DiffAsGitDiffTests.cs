@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using TopCover.Models;
 
 namespace TopCover.Tests.CoverageDiff;
 

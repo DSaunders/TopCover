@@ -1,6 +1,7 @@
 ﻿using System.CommandLine;
-using System.Drawing;
+using TopCover.CiTools.AzureDevops;
 using TopCover.CoverageDiff;
+using TopCover.Models;
 using TopCover.Parsers.Cobertura;
 
 namespace TopCover.ConsoleCommands;
@@ -21,35 +22,38 @@ public static class DiffCommand
         );
         diffAfterOption.AddAlias("-a");
 
-        var storeInVars = new Option<string?>(
-            name: "--setvars",
-            description: "Stores the results of the diff in pipeline variables (options: \"devops\")"
+        var storeInVars = new Option<bool>(
+            name: "--setDevopsVars",
+            description: "Stores the results of the diff in Azure DevOps pipeline variables"
         );
 
+        var newLineChar = new Option<string?>(
+            name: "--newlineChar"
+        );
+        
         var command = new Command("diff", "Calculate the difference between two coverage reports")
         {
             diffBeforeOption,
             diffAfterOption,
-            storeInVars
+            storeInVars,
+            newLineChar
         };
 
-        command.SetHandler(async (before, after, env) =>
+        command.SetHandler(async (
+                before, 
+                after, 
+                devopsVars
+                ) =>
             {
                 if (!before.Exists)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(
-                        $"Could not find the 'before' file '{before.FullName}'.");
-                    Console.ResetColor();
+                    WriteError($"Could not find the 'before' file '{before.FullName}'.");
                     Environment.Exit(1);
                 }
 
                 if (!after.Exists)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(
-                        $"Could not find the 'after' file '{after.FullName}'.");
-                    Console.ResetColor();
+                    WriteError($"Could not find the 'after' file '{after.FullName}'.");
                     Environment.Exit(1);
                 }
 
@@ -64,48 +68,29 @@ public static class DiffCommand
                 var diff = CoverageDiffGenerator.Diff(oldReport, newReport);
                 WriteReport(diff);
 
-                if (env is not null && env == "devops")
-                    StoreResultsInVars(diff);
+                if (devopsVars)
+                {
+                    new DevopsVariableSetter(Console.WriteLine)
+                        .SetDevopsVars(diff);
+                }
             },
             diffBeforeOption,
             diffAfterOption,
             storeInVars
-        );
+            );
 
         return command;
+    }
+
+    private static void WriteError(string error)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(error);
+        Console.ResetColor();
     }
 
     private static void WriteReport(CoverageDifference diff)
     {
         Console.WriteLine(diff.FormatAsGitDiff());
     }
-
-    private static void StoreResultsInVars(CoverageDifference diff)
-    {
-        SetVar("OVERALL_LINE_BEFORE", diff.Summary.LineCoverage.Old.ToString("#00.0"));
-        SetVar("OVERALL_LINE_AFTER", diff.Summary.LineCoverage.New.ToString("#00.0"));
-        SetVar("OVERALL_LINE_CHANGE", FormatChange(diff.Summary.LineCoverage.Change));
-        var lineChangeChar = diff.Summary.LineCoverage.Change > 0
-            ? "↑"
-            : diff.Summary.LineCoverage.Change < 0
-                ? "↓"
-                : string.Empty;
-        SetVar("OVERALL_LINE_CHANGE_INDICATOR", lineChangeChar);
-        Console.WriteLine();
-        SetVar("OVERALL_BRANCH_BEFORE", diff.Summary.BranchCoverage.Old.ToString("#00.0"));
-        SetVar("OVERALL_BRANCH_AFTER", diff.Summary.BranchCoverage.New.ToString("#0.0"));
-        SetVar("OVERALL_BRANCH_CHANGE", FormatChange(diff.Summary.BranchCoverage.Change));
-        var branchChangeChar = diff.Summary.BranchCoverage.Change > 0
-            ? "↑"
-            : diff.Summary.BranchCoverage.Change < 0
-                ? "↓"
-                : string.Empty;
-        SetVar("OVERALL_BRANCH_CHANGE_INDICATOR", branchChangeChar);
-    }
-
-    private static string FormatChange(decimal diff) => $"{diff:+##0.0;-##0.0;##0.0}";
-
-    private static void SetVar(string name, string value) =>
-        Console.WriteLine(
-            $"##vso[task.setvariable variable=TOPCOVER_{name}]{value}");
 }

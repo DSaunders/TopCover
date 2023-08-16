@@ -1,4 +1,6 @@
-﻿namespace TopCover.CoverageDiff;
+﻿using TopCover.Models;
+
+namespace TopCover.CoverageDiff;
 
 public static class CoverageDiffGenerator
 {

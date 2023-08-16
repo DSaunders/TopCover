@@ -1,4 +1,4 @@
-﻿namespace TopCover;
+﻿namespace TopCover.Models;
 
 public record CoverageDifference(CoverageDifferenceSummary Summary);
 

@@ -59,15 +59,12 @@ produces:
  |===============================================================|
 ```
 
-### `--setvars`
+### `--setDevopsVars`
 
-Stores the results of the diff in pipeline variables, to be accessed in later build steps.
-
-This currently supports [Azure Devops](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-a-job-scoped-variable-from-a-script-1), but will soon support [GitHub Actions](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions) too.
-
+Stores the results of the diff in [Azure Devops](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-a-job-scoped-variable-from-a-script-1) variables, to be accessed in later build steps.
 
 ```
-topcover diff -b old.xml -a new.xml --setvars devops
+topcover diff -b old.xml -a new.xml --setDevopsVars
 ```
 
 sets the following variables:
@@ -81,6 +78,13 @@ TOPCOVER_OVERALL_BRANCH_AFTER = 50.0
 TOPCOVER_OVERALL_BRANCH_CHANGE = 0.0
 TOPCOVER_OVERALL_BRANCH_CHANGE_INDICATOR = 
 ```
+
+This also stores the full coverage report in a variable; 'TOPCOVER_PR_COMMENT'.
+
+This comment is wrapped in a ` ```diff ` tag, so that it can be used in a markdown comment, e.g. in a GitHub PR:
+
+
+
 
 # Coming soon
 
