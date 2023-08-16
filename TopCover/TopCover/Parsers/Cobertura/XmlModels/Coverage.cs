@@ -10,6 +10,13 @@ public class Coverage
     
     [XmlAttribute("branch-rate")]
     public decimal BranchRate { get; set; }
+    
+    [XmlAttribute("lines-valid")]
+    public int TotalLines { get; set; }
+    
+    [XmlAttribute("lines-covered")]
+    public int CoveredLines { get; set; }
+
 
     [XmlElement("packages")]
     public Packages Packages { get; set; } = null!;

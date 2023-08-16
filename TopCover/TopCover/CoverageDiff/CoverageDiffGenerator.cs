@@ -16,10 +16,22 @@ public static class CoverageDiffGenerator
             after.Summary.BranchCoverage
         );
 
+        var overallLineCount = new DiffSummary(
+            before.Summary.TotalLines,
+            after.Summary.TotalLines
+        );
+        
+        var coveredLinesCount = new DiffSummary(
+            before.Summary.CoveredLines,
+            after.Summary.CoveredLines
+        );
+
         return new CoverageDifference(
             new CoverageDifferenceSummary(
                 overallLineCoverage,
-                overallBranchCoverage
+                overallBranchCoverage,
+                overallLineCount,
+                coveredLinesCount
             )
         );
     }

@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using TopCover.CoverageDiff;
 using TopCover.Models;
 
 namespace TopCover.Tests.CoverageDiff;
@@ -44,6 +45,8 @@ public class DiffAsGitDiffTests
         decimal branchNew) =>
         new(new CoverageDifferenceSummary(
             new DiffSummary(lineOld, lineNew),
-            new DiffSummary(branchOld, branchNew)
+            new DiffSummary(branchOld, branchNew),
+            new DiffSummary(0,0),
+            new DiffSummary(0,0)
         ));
 }

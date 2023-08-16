@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using TopCover.CiTools.AzureDevops;
+using TopCover.CoverageDiff;
 using TopCover.Models;
 
 namespace TopCover.Tests.CITools.AzureDevops;
@@ -73,6 +74,8 @@ public class DevopsVariableSetterTests
         decimal branchNew) =>
         new(new CoverageDifferenceSummary(
             new DiffSummary(lineOld, lineNew),
-            new DiffSummary(branchOld, branchNew)
+            new DiffSummary(branchOld, branchNew),
+            new DiffSummary(0,0),
+            new DiffSummary(0,0)
         ));
 }

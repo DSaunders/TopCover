@@ -35,4 +35,22 @@ public class SummaryTests : IClassFixture<SampleLoader>
             .BranchCoverage
             .Should().Be(50.00m);
     }
+    
+    [Fact]
+    public async Task Returns_Total_Lines()
+    {
+        (await _generator.Generate(_sample))
+            .Summary
+            .TotalLines
+            .Should().Be(9);
+    }
+    
+    [Fact]
+    public async Task Returns_Covered_Lines()
+    {
+        (await _generator.Generate(_sample))
+            .Summary
+            .CoveredLines
+            .Should().Be(5);
+    }
 }

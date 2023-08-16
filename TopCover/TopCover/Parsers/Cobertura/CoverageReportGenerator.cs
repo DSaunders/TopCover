@@ -1,6 +1,10 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
+using TopCover.Models;
 using TopCover.Parsers.Cobertura.XmlModels;
+using Class = TopCover.Models.Class;
+using Method = TopCover.Models.Method;
+using Package = TopCover.Models.Package;
 
 namespace TopCover.Parsers.Cobertura;
 
@@ -26,7 +30,9 @@ public class CoverageReportGenerator
 
         var summary = new Summary(
             results.LineRate * 100,
-            results.BranchRate * 100
+            results.BranchRate * 100,
+            results.TotalLines,
+            results.CoveredLines
         );
 
         return Task.FromResult(

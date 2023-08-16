@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using TopCover.Models;
 
-namespace TopCover;
+namespace TopCover.CoverageDiff;
 
 public static class DiffDisplay
 {

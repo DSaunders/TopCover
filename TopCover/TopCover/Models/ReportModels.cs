@@ -1,4 +1,4 @@
-﻿namespace TopCover;
+﻿namespace TopCover.Models;
 
 public record CoverageReport(
     Summary Summary,
@@ -7,7 +7,9 @@ public record CoverageReport(
 
 public record Summary(
     decimal LineCoverage,
-    decimal BranchCoverage
+    decimal BranchCoverage,
+    decimal TotalLines,
+    decimal CoveredLines
 );
 
 public record Package(string Name, List<Class> Classes);

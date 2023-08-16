@@ -1,4 +1,5 @@
-﻿using TopCover.Models;
+﻿using TopCover.CoverageDiff;
+using TopCover.Models;
 
 namespace TopCover.CiTools.AzureDevops;
 
