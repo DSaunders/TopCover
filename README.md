@@ -29,10 +29,6 @@ dotnet tool install --global TopCover
 
 By providing two coverage reports (e.g. from a PR and the target branch it will be merged in to), TopCover can analyse the difference.
 
-```
-topcover diff -?
-```
-
 ### `--before` and `--after` (required)
 
 The relative path to the Cobertura XML test reports to compare.
