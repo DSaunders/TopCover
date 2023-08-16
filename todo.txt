@@ -1,5 +1,0 @@
-[ ] Ouptut environment varables with coverage diffs for use in pipeline
-(including change -1 0 +1 or 'has increased')?
-
-[ ] Option to fail if coverage goes down
-[ ] Option to set threshold for change
