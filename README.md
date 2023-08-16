@@ -79,10 +79,19 @@ TOPCOVER_OVERALL_BRANCH_CHANGE = 0.0
 TOPCOVER_OVERALL_BRANCH_CHANGE_INDICATOR = 
 ```
 
-This also stores the full coverage report in a variable; 'TOPCOVER_PR_COMMENT'.
+This also stores the full coverage report in a variable; `TOPCOVER_PR_COMMENT`.
 
-This comment is wrapped in a ` ```diff ` tag, so that it can be used in a markdown comment, e.g. in a GitHub PR:
+This comment is wrapped in a markdown ` ```diff ` code tag, so that it is displayed nicely in a PR comment, e.g. in GitHub:
 
+```yaml
+- task: GitHubComment@0
+  inputs:
+    gitHubConnection: "MyGitHubCOnnection"
+    repositoryName: "$(Build.Repository.Name)"
+    comment: "$(TOPCOVER_PR_COMMENT)"
+```
+
+![image](https://github.com/DSaunders/TopCover/assets/4059030/3bb08947-8401-417b-9aa9-c18ba39ef129)
 
 
 
