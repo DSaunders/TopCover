@@ -5,16 +5,29 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        
+
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>topcover</ToolCommandName>
         <PackageOutputPath>../../nupkg</PackageOutputPath>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Version>0.1.0</Version>
         
-        <Version>0.0.10</Version>
+        <Authors>Dave Saunders</Authors>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/DSaunders/TopCover</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/DSaunders/TopCover</PackageProjectUrl>
+        <PackageTags>CI,Unit Tests,CommandLine</PackageTags>
+        <Description>TopCover is a command-line tool that helps you analyse test coverage</Description>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1"/>
+        <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0"/>
+        <None Include="$(SolutionDir)/../readme.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>

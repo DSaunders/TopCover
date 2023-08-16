@@ -1,7 +1,6 @@
 ﻿using System.CommandLine;
 using TopCover.CiTools.AzureDevops;
 using TopCover.CoverageDiff;
-using TopCover.Models;
 using TopCover.Parsers.Cobertura;
 
 namespace TopCover.ConsoleCommands;
@@ -30,7 +29,7 @@ public static class DiffCommand
         var newLineChar = new Option<string?>(
             name: "--newlineChar"
         );
-        
+
         var command = new Command("diff", "Calculate the difference between two coverage reports")
         {
             diffBeforeOption,
@@ -40,10 +39,10 @@ public static class DiffCommand
         };
 
         command.SetHandler(async (
-                before, 
-                after, 
+                before,
+                after,
                 devopsVars
-                ) =>
+            ) =>
             {
                 if (!before.Exists)
                 {
@@ -66,18 +65,16 @@ public static class DiffCommand
                 var newReport = await generator.Generate(newFile);
 
                 var diff = CoverageDiffGenerator.Diff(oldReport, newReport);
-                WriteReport(diff);
 
                 if (devopsVars)
-                {
-                    new DevopsVariableSetter(Console.WriteLine)
-                        .SetDevopsVars(diff);
-                }
+                    new DevopsVariableSetter(Console.WriteLine).SetDevopsVars(diff);
+
+                Console.WriteLine(diff.FormatAsGitDiff());
             },
             diffBeforeOption,
             diffAfterOption,
             storeInVars
-            );
+        );
 
         return command;
     }
@@ -87,10 +84,5 @@ public static class DiffCommand
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(error);
         Console.ResetColor();
-    }
-
-    private static void WriteReport(CoverageDifference diff)
-    {
-        Console.WriteLine(diff.FormatAsGitDiff());
     }
 }

@@ -63,7 +63,7 @@ public class DevopsVariableSetterTests
         VariableShouldBeSet(commands, "TOPCOVER_PR_COMMENT", expectedComment);
     }
 
-    public void VariableShouldBeSet(List<string> commands, string variable, string value)
+    private void VariableShouldBeSet(List<string> commands, string variable, string value)
     {
         var correctCommand = $"##vso[task.setvariable variable={variable}]{value}";
         commands.Should().Contain(correctCommand);
