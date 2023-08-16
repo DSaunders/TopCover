@@ -86,7 +86,7 @@ This comment is wrapped in a markdown ` ```diff ` code tag, so that it is displa
 ```yaml
 - task: GitHubComment@0
   inputs:
-    gitHubConnection: "MyGitHubCOnnection"
+    gitHubConnection: "MyGitHubConnection"
     repositoryName: "$(Build.Repository.Name)"
     comment: "$(TOPCOVER_PR_COMMENT)"
 ```
