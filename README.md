@@ -1,19 +1,9 @@
 # TopCover
 
-![nuget badge](https://img.shields.io/nuget/vpre/TopCover)
 
-Chasing 100% code coverage is bad, but having no test coverage is _also_ bad!
-
-> If a part of your test suite is weak in a way that coverage can detect, it's likely also weak in a way coverage can't detect.
->
-> -- [Brian Marick](http://www.exampler.com/testing-com/writings/coverage.pdf)
-
-<br />
 TopCover is a command-line tool, designed to run in a CI process, that helps you analyse test coverage and understand your code's weak points.
 
 TopCover does not run code coverage tools. Instead, you pass it code coverage reports from your tool of choice.
-
-<br />
 
 # Installation
 
